@@ -1,0 +1,59 @@
+name: Database gates
+on: [pull_request, push]
+permissions:
+  contents: read
+jobs:
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.76.8
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.9.6
+      - run: supabase start
+      - id: reset
+        run: supabase db reset --local
+      - run: bash scripts/provision-native-local.sh --confirm-local
+      - run: supabase test db
+      - run: python3 scripts/check-migration-history.py
+      - run: supabase db lint --local --level error
+      - if: ${{ !cancelled() && steps.reset.outcome == 'success' }}
+        run: docker exec -i supabase_db_entitygraph-local psql -X -U postgres -d postgres -v ON_ERROR_STOP=1 < tests/mcp/read_tools.sql
+      - if: ${{ !cancelled() && steps.reset.outcome == 'success' }}
+        run: docker exec -i supabase_db_entitygraph-local psql -X -U postgres -d postgres -v ON_ERROR_STOP=1 < tests/mcp/golden_path.sql
+      - if: ${{ !cancelled() && steps.reset.outcome == 'success' }}
+        run: docker exec -i supabase_db_entitygraph-local psql -X -U postgres -d postgres -v ON_ERROR_STOP=1 < tests/native/process_execution.sql
+      - if: ${{ !cancelled() && steps.reset.outcome == 'success' }}
+        run: docker exec -i supabase_db_entitygraph-local psql -X -U postgres -d postgres -v ON_ERROR_STOP=1 < tests/identity/oauth_grants.sql
+      - if: ${{ !cancelled() && steps.reset.outcome == 'success' }}
+        run: docker exec -i supabase_db_entitygraph-local psql -X -U postgres -d postgres -v ON_ERROR_STOP=1 < tests/identity/oauth_dispatch.sql
+      - if: ${{ !cancelled() && steps.reset.outcome == 'success' }}
+        run: python3 tests/supabase/run_application_local.py --confirm-disposable
+      - if: always()
+        run: supabase stop --no-backup
+  postgres-regression:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: disposable_ci_only
+          POSTGRES_DB: entitygraph_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: disposable_ci_only
+      PGDATABASE: entitygraph_test
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash tests/postgres16/run.sh
+      - run: python3 tests/postgres16/concurrency_test.py
+      - run: psql -X -v ON_ERROR_STOP=1 -f tests/postgres16/export_reference_roundtrip.sql
