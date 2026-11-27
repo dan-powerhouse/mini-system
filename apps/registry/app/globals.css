@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens. Every color, radius and shadow in the registry comes from here.
+ * Raw values live in :root (light) and .dark; @theme inline below turns them into
+ * Tailwind utilities (bg-card, rounded-panel, shadow-float, text-actor-agent, …).
+ * Reusable compositions of these utilities live in components/kit.
+ */
+:root {
+  /* Surfaces and text */
+  --background: #f4f1ea;
+  --foreground: #1c1b19;
+  --card: #fffdf9;
+  --card-foreground: #1c1b19;
+  --rail: #efebe3;
+  --raised: #fffefa;
+  --popover: #fffdf9;
+  --popover-foreground: #1c1b19;
+  --primary: #2f4bff;
+  --primary-foreground: #f7f8ff;
+  --secondary: #ebe6dc;
+  --secondary-foreground: #1c1b19;
+  --muted: #ebe6dc;
+  --muted-foreground: #6f6a62;
+  --accent: #e7e1d6;
+  --accent-foreground: #1c1b19;
+  --destructive: #b42318;
+  --border: #e4ddd2;
+  --input: #e4ddd2;
+  --ring: #2f4bff;
+  /* Who does the work: humans, agents, machines */
+  --actor-human: #2f4bff;
+  --actor-agent: #0d7363;
+  --actor-machine: #985306;
+  /* Shape */
+  --radius: 1.15rem;
+  --panel-radius: 28px; /* cards, dialogs, empty states */
+  --row-radius: 22px; /* list rows */
+  /* Elevation */
+  --panel-shadow: 0 1px 2px rgb(28 27 25 / 4%);
+  --raised-shadow: 0 2px 5px rgb(28 27 25 / 5%), 0 12px 26px -20px rgb(28 27 25 / 35%);
+  --overlay-shadow: 0 12px 24px -8px rgb(28 27 25 / 16%), 0 24px 56px -18px rgb(28 27 25 / 24%);
+  --float-shadow: 0 20px 60px rgba(28, 27, 25, 0.06); /* floating auth card */
+}
+
+.dark {
+  --background: #101114;
+  --foreground: #f3f1ec;
+  --card: #1a1c21;
+  --card-foreground: #f3f1ec;
+  --rail: #13151a;
+  --raised: #20232a;
+  --popover: #1e2026;
+  --popover-foreground: #f3f1ec;
+  --primary: #9aabff;
+  --primary-foreground: #12141c;
+  --secondary: #26282f;
+  --secondary-foreground: #f3f1ec;
+  --muted: #26282f;
+  --muted-foreground: #a39e95;
+  --accent: #2a2d35;
+  --accent-foreground: #f3f1ec;
+  --destructive: #ff8d7d;
+  --border: #2e3138;
+  --input: #2e3138;
+  --ring: #9aabff;
+  --actor-human: #9aabff;
+  --actor-agent: #5fd4c0;
+  --actor-machine: #f0b45a;
+  --panel-shadow: 0 1px 2px rgb(0 0 0 / 18%);
+  --raised-shadow: 0 2px 5px rgb(0 0 0 / 22%), 0 16px 28px -20px rgb(0 0 0 / 55%);
+  --overlay-shadow: 0 12px 24px -8px rgb(0 0 0 / 42%), 0 24px 56px -18px rgb(0 0 0 / 60%);
+  --float-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-rail: var(--rail);
+  --color-raised: var(--raised);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-actor-human: var(--actor-human);
+  --color-actor-agent: var(--actor-agent);
+  --color-actor-machine: var(--actor-machine);
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-panel: var(--panel-radius);
+  --radius-row: var(--row-radius);
+  --shadow-float: var(--float-shadow);
+  --shadow-panel: var(--panel-shadow);
+  --shadow-raised: var(--raised-shadow);
+  --shadow-overlay: var(--overlay-shadow);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  * { border-color: var(--border); }
+}
+
+html, body { min-height: 100%; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: color-mix(in srgb, var(--primary) 28%, transparent); }
+
+button, input, textarea { font: inherit; }
+
+.app-scroll { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--foreground) 22%, transparent) transparent; }
