@@ -1,0 +1,5 @@
+# Security policy
+
+Never use the initial migration as a production application until all authorization, token, audit and mutation tests pass. Report vulnerabilities privately to the repository owner; do not post credential values in issues. Treat Supabase dashboard/project administrators and database owners as trusted operators outside ordinary app-role guarantees. RLS is not protection against privileged owners or service-role bypass. Avoid service-role writes, restrict grants, and keep token material outside exposed tables. Credential compromise requires immediate revocation and audit review. See CONTRACTS and ACCEPTANCE for the full security contract.
+
+Production v0: the browser host is authentication-only. The custom application MCP must expose only reviewed domain operations. Supabase management MCP, arbitrary SQL and generic RPC forwarding are excluded. Native OAuth identity tokens do not grant Registry access until explicit scoped client/user/workspace authorization is implemented. Do not use a service key in a browser or LLM client.
