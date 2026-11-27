@@ -1,0 +1,120 @@
+{
+  "format": 1,
+  "migrations": [
+    {
+      "version": "20261124201904",
+      "name": "registry_foundation",
+      "sha256": "f4e6f179293bb1292dde7f891e7513cf75b1f5e41c2d3c23ac5697037711ba31"
+    },
+    {
+      "version": "20261124201912",
+      "name": "entity_rpc",
+      "sha256": "9f9545953e686227674007f1862b04ade8c34f2e1f9405ce04963598623b3e38"
+    },
+    {
+      "version": "20261124201916",
+      "name": "execution_storage",
+      "sha256": "811526e76294e89b35c003c50744aa9913f02f5e68acf048f423742eb09b66a3"
+    },
+    {
+      "version": "20261124201920",
+      "name": "registry_relations",
+      "sha256": "651aed5c7262cf741fa1335abb8747799e23fead6dc453879bd1b7342606f979"
+    },
+    {
+      "version": "20261124201924",
+      "name": "registry_reads",
+      "sha256": "d76c88ff0d05937d117120640ccd8390b0866078180073f980c2cc677e4a5a1a"
+    },
+    {
+      "version": "20261124201942",
+      "name": "workspace_access",
+      "sha256": "61a45e1a270d2fd55577d285359a77414b82db1eff0ae8e38e3f84efa251c320"
+    },
+    {
+      "version": "20261124201946",
+      "name": "mcp_access",
+      "sha256": "dc5120c9d8a5700a250f82ca8d7c4b1ff2d303d5a0a43e1a75d7d2924fa425fc"
+    },
+    {
+      "version": "20261124201950",
+      "name": "registry_operations",
+      "sha256": "f03cc78ba18a4f1bf046de7a31a1571820a32eb0fd1638d69eb9d65140461ab3"
+    },
+    {
+      "version": "20261124201954",
+      "name": "registry_paths",
+      "sha256": "bf3fd0657b74ee3ba461cd641f653b945971f579d652cc961e64e3cf81becc14"
+    },
+    {
+      "version": "20261124202004",
+      "name": "registry_exchange",
+      "sha256": "cf6823627bccb881e6af3936cbbda67f560be5654ff60f8cac40d326f0424f3f"
+    },
+    {
+      "version": "20261124202010",
+      "name": "registry_audit",
+      "sha256": "672b39677c41568aa11a811013aa07bd374af29aa6a95b855be90cccdb845b32"
+    },
+    {
+      "version": "20261124202015",
+      "name": "process_kind_publication",
+      "sha256": "071ee049a693bde16ba79c70741f60216c5a28a2f559df182ee3ad84212d9b81"
+    },
+    {
+      "version": "20261124202026",
+      "name": "execution_native",
+      "sha256": "7ab70f2bbd2da752c609a097463de20d968bd80844606217430dbeba7797d55c"
+    },
+    {
+      "version": "20261124202221",
+      "name": "process_execution_private",
+      "sha256": "b79c7d198486cfe279bcc5023e5aaa16d09865e7c1fbc2b21dc34e298ab1f3cc"
+    },
+    {
+      "version": "20261124205909",
+      "name": "identity_provider",
+      "sha256": "2372fbb5f9060469a3f5c738c664d3f8ad1d8d10fcd1b3b5a5c17830900940db"
+    },
+    {
+      "version": "20261125001951",
+      "name": "mcp_read_tools",
+      "sha256": "94e435391f045a911e6494ef4a04bad3704f20a5b4dfc35ad7dbac53ac5926a7"
+    },
+    {
+      "version": "20261125004055",
+      "name": "mcp_golden_path",
+      "sha256": "1e6773e44a41e70c52fa6956f13ea52bbdf1ca1ada092ef2b185aaac75b6f125"
+    },
+    {
+      "version": "20261126170000",
+      "name": "foreign_key_indexes",
+      "sha256": "c8f63fb0a2ed468122faaf2c037f2d7604d50331bbc45c1bd1cb9ea748233e3f"
+    },
+    {
+      "version": "20261126170010",
+      "name": "execution_foreign_key_indexes",
+      "sha256": "023484c369bf71b7ace37bfcb61fd3785bb274b94a96ab92293b222333e47e12"
+    },
+    {
+      "version": "20261126170020",
+      "name": "native_platform",
+      "sha256": "8bdb53fc0649f79a7e8ffb86c79e87ba7c169fd587a3db148ab1bb110ff02761"
+    },
+    {
+      "version": "20261126170030",
+      "name": "audit_event_order",
+      "sha256": "a0ef06d9066e77a6be680b54084c187e513f4226b33da14ecaa9cb82a233d118"
+    },
+    {
+      "version": "20261126170040",
+      "name": "export_dependency_closure",
+      "sha256": "349383afd552db30d63033bfa71a57bb687dbfaff6afc6686e12fc20af244106"
+    },
+    {
+      "version": "20261126180000",
+      "name": "oauth_delegation",
+      "sha256": "3c1046af250409a3baa2432f6b0062a40697a4c1fee02c1aaa21c62bbd877a88"
+    }
+  ]
+}
