@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "@modelcontextprotocol/server": "npm:@modelcontextprotocol/server@2.4.0",
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2.112.4",
+    "zod": "npm:zod@4.6.7"
+  },
+  "compilerOptions": { "strict": true },
+  "lock": { "path": "deno.lock", "frozen": true }
+}
