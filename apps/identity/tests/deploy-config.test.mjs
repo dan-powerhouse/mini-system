@@ -1,0 +1,8 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { validateDeployConfig as check } from '../lib/deploy-config.mjs';
+const valid = {VERCEL_ENV:'production',NEXT_PUBLIC_SUPABASE_URL:'https://registry.example.test',NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:'sb_publishable_test_only',NEXT_PUBLIC_IDENTITY_BASE_URL:'https://login.example.test'};
+test('production requires all three public settings',()=>{assert.doesNotThrow(()=>check(valid)); for(const k of Object.keys(valid).filter(x=>x.startsWith('NEXT_PUBLIC'))){const v={...valid};delete v[k];assert.throws(()=>check(v));}});
+test('server credentials, arbitrary JWTs and partial configuration rejected',()=>{for(const key of ['sb_secret_example','not-a-key','eyJ.fake.fake'])assert.throws(()=>check({...valid,NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:key}));assert.throws(()=>check({NEXT_PUBLIC_SUPABASE_URL:valid.NEXT_PUBLIC_SUPABASE_URL}));});
+test('origin rejects path, query, fragment, credentials and insecure hosts',()=>{for(const url of ['https://login.example.test/other','https://login.example.test/?x=1','https://login.example.test/#x','https://a:b@login.example.test','http://login.example.test','http://localhost:3000'])assert.throws(()=>check({...valid,NEXT_PUBLIC_IDENTITY_BASE_URL:url}));});
+test('local development and credential-free Vercel preview allowed; authenticated previews disabled',()=>{assert.doesNotThrow(()=>check({VERCEL_ENV:'preview'}));assert.doesNotThrow(()=>check({...valid,VERCEL_ENV:'development',NEXT_PUBLIC_IDENTITY_BASE_URL:'http://localhost:3000',NEXT_PUBLIC_SUPABASE_URL:'http://127.0.0.1:54321'}));assert.throws(()=>check({...valid,VERCEL_ENV:'preview'}));});
